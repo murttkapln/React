@@ -14,23 +14,24 @@ function App() {
     },
   ]);
 
-  const [title, setTitle] = useState("Default Title")
-
-
-
-
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
   return (
     <div className="container">
       <div className="table-wrapper">
-        <Header title={title} />
+        <Header onOpenAddModal={() => setIsAddModalOpen(true)} />
         <EmployeeList employees={employees} />
+        <AddEmployeModal
+          isOpen={isAddModalOpen}
+          onCloseAddModal={() => setIsAddModalOpen(false)}
+        />
       </div>
     </div>
   );
 }
 
-function Header({title}) {
+function Header({ onOpenAddModal }) {
+  console.log("header modal");
   return (
     <div className="table-title">
       <div className="row">
@@ -40,16 +41,11 @@ function Header({title}) {
           </h2>
         </div>
         <div className="col-sm-6">
-
-    
-          <a
-            href="#addEmployeeModal"
-            className="btn btn-success"
-            data-toggle="modal"
-          >
+          <button onClick={onOpenAddModal} className="btn btn-success">
             <i className="material-icons">&#xE147;</i>
             <span>Add New Employee</span>
-          </a>
+          </button>
+
           <a
             href="#deleteEmployeeModal"
             className="btn btn-danger"
@@ -60,6 +56,107 @@ function Header({title}) {
         </div>
       </div>
     </div>
+  );
+}
+
+function AddEmployeModal({ isOpen, onCloseAddModal }) {
+  console.log("closeModal");
+  if (!isOpen) return null;
+  return (
+    <>
+      <div id="employeeModal" className="modal fade show">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <form>
+              <div className="modal-header">
+                <h4 className="modal-title">Edit Title</h4>
+                <button
+                  onClick={onCloseAddModal}
+                  type="button"
+                  className="close"
+                  data-dismiss="modal"
+                  aria-hidden="true"
+                >
+                  &times;
+                </button>
+              </div>
+              <div className="modal-body">
+                <div className="form-group">
+                  <label>Name</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    required
+                    name="name"
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Email</label>
+                  <input
+                    type="email"
+                    className="form-control"
+                    required
+                    name="email"
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Address</label>
+                  <textarea
+                    className="form-control"
+                    required
+                    name="address"
+                  ></textarea>
+                </div>
+                <div className="form-group">
+                  <label>Phone</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    required
+                    name="phone"
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Gender</label>
+                  <div>
+                    <label>
+                      <input type="radio" name="gender" value="Male" />
+                      Male
+                    </label>
+                    <label>
+                      <input type="radio" name="gender" value="Female" />
+                      Female
+                    </label>
+                  </div>
+                </div>
+                <div className="form-group">
+                  <label>Department</label>
+                  <div>
+                    <select name="department">
+                      <option value="" disabled>
+                        Select Department
+                      </option>
+                      <option value="Finance">Finance</option>
+                      <option value="HR">HR</option>
+                      <option value="Development">Development</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-default">
+                  Cancel
+                </button>
+                <button type="submit" className="btn btn-success">
+                  Aç/Kapa
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div className="modal-backgrop fade show"></div>
+    </>
   );
 }
 
