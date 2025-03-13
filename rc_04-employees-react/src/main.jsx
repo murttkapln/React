@@ -15,9 +15,7 @@ function App() {
   ]);
 
   const [title, setTitle] = useState("Default Title")
-  function updateFunction(){
-    setTitle("New Title")
-  }
+
 
 
 
@@ -25,26 +23,26 @@ function App() {
   return (
     <div className="container">
       <div className="table-wrapper">
-        <Header title={title} onUpdateTitle={updateFunction} />
+        <Header title={title} />
         <EmployeeList employees={employees} />
       </div>
     </div>
   );
 }
 
-function Header({title, onUpdateTitle}) {
+function Header({title}) {
   return (
     <div className="table-title">
       <div className="row">
         <div className="col-sm-6">
           <h2>
-            {title}
+            Manage <b>Employees</b>
           </h2>
         </div>
         <div className="col-sm-6">
 
-          <button className="btn btn-success" onClick={onUpdateTitle}>Click</button>
-          {/* <a
+    
+          <a
             href="#addEmployeeModal"
             className="btn btn-success"
             data-toggle="modal"
@@ -58,7 +56,7 @@ function Header({title, onUpdateTitle}) {
             data-toggle="modal"
           >
             <i className="material-icons">&#xE15C;</i> <span>Delete</span>
-          </a> */}
+          </a>
         </div>
       </div>
     </div>
