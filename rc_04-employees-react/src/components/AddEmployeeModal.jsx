@@ -126,7 +126,7 @@ function AddEmployeeModal({ isOpen, onCloseAddModal, onAddEmployee }) {
                         name="gender"
                         value="Female"
                         checked={formData.gender === "Female"}
-                        onCanPlay={handleChange}
+                        onChange={handleChange}
                       />
                       Female
                     </label>
