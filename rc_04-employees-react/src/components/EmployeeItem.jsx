@@ -1,5 +1,8 @@
-function EmployeeItem({ employee }) {
+function EmployeeItem({ employee, onEditClick }) {
   // console.log("employee", employee);
+  function handleClick() {
+    onEditClick(employee);
+  }
   return (
     <tr>
       <td>
@@ -19,7 +22,7 @@ function EmployeeItem({ employee }) {
       <td>{employee.gender}</td>
       <td>{employee.department}</td>
       <td>
-        <a className="edit">
+        <a onClick={handleClick} href="editEmployeeModal" className="edit">
           <i className="material-icons" data-toggle="tooltip" title="Edit">
             &#xE254;
           </i>

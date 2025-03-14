@@ -2,7 +2,7 @@ import EmployeeItem from "./EmployeeItem"
 
 
 
-function EmployeeList({ employees }) {
+function EmployeeList({ employees,onEditClick }) {
   // console.log("emp", employees);
   return (
     <table className="table table-striped table-hover">
@@ -30,7 +30,8 @@ function EmployeeList({ employees }) {
       </thead>
       <tbody>
         {employees.map((employee) => (
-          <EmployeeItem key={employee.id} employee={employee} />
+          <EmployeeItem key={employee.id} employee={employee}
+          onEditClick={onEditClick} />
         ))}
       </tbody>
     </table>
