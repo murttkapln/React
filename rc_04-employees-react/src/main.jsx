@@ -14,6 +14,16 @@ function App() {
     },
   ]);
 
+  function addEmployee(newEmployee) {
+    setEmployees((prevEmployees) => [
+      ...prevEmployees,
+      {
+        ...newEmployee,
+        id: Math.max(...prevEmployees.map((emp) => emp.id), 0) + 1,
+      },
+    ]);
+  }
+
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
   return (
@@ -24,6 +34,7 @@ function App() {
         <AddEmployeModal
           isOpen={isAddModalOpen}
           onCloseAddModal={() => setIsAddModalOpen(false)}
+          onAddEmployee={addEmployee}
         />
       </div>
     </div>
@@ -31,7 +42,6 @@ function App() {
 }
 
 function Header({ onOpenAddModal }) {
-  console.log("header modal");
   return (
     <div className="table-title">
       <div className="row">
@@ -59,17 +69,43 @@ function Header({ onOpenAddModal }) {
   );
 }
 
-function AddEmployeModal({ isOpen, onCloseAddModal }) {
-  console.log("closeModal");
+function AddEmployeModal({ isOpen, onCloseAddModal, onAddEmployee }) {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    address: "",
+    phone: "",
+  });
+
+  function handleChange(e) {
+    const { name, value } = e.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    onAddEmployee(formData);
+    onCloseAddModal();
+    setFormData({
+      name: "",
+      email: "",
+      address: "",
+      phone: "",
+    });
+  }
+
   if (!isOpen) return null;
   return (
     <>
       <div id="employeeModal" className="modal fade show">
         <div className="modal-dialog">
           <div className="modal-content">
-            <form>
+            <form onSubmit={handleSubmit}>
               <div className="modal-header">
-                <h4 className="modal-title">Edit Title</h4>
+                <h4 className="modal-title">{formData.name}</h4>
                 <button
                   onClick={onCloseAddModal}
                   type="button"
@@ -88,6 +124,8 @@ function AddEmployeModal({ isOpen, onCloseAddModal }) {
                     className="form-control"
                     required
                     name="name"
+                    value={formData.name}
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="form-group">
@@ -97,6 +135,8 @@ function AddEmployeModal({ isOpen, onCloseAddModal }) {
                     className="form-control"
                     required
                     name="email"
+                    value={formData.email}
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="form-group">
@@ -105,6 +145,8 @@ function AddEmployeModal({ isOpen, onCloseAddModal }) {
                     className="form-control"
                     required
                     name="address"
+                    value={formData.address}
+                    onChange={handleChange}
                   ></textarea>
                 </div>
                 <div className="form-group">
@@ -114,6 +156,8 @@ function AddEmployeModal({ isOpen, onCloseAddModal }) {
                     className="form-control"
                     required
                     name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="form-group">
@@ -148,7 +192,7 @@ function AddEmployeModal({ isOpen, onCloseAddModal }) {
                   Cancel
                 </button>
                 <button type="submit" className="btn btn-success">
-                  Aç/Kapa
+                  Add
                 </button>
               </div>
             </form>
