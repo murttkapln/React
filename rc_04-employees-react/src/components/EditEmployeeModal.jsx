@@ -1,4 +1,53 @@
-function EditEmployeeModal({ isOpen, employee, onCloseAddModal }) {
+import { useEffect, useState } from "react";
+
+function EditEmployeeModal({
+  isOpen,
+  employee,
+  onCloseEditModal,
+  onEditEmployee,
+}) {
+  const [formData, setFormData] = useState(employee);
+
+  useEffect(() => {
+    if (employee) {
+      setFormData(employee);
+    }
+  }, [employee]);
+
+  function handleChange(e) {
+    const { name, value } = e.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    onEditEmployee(formData);
+    onCloseEditModal();
+    setFormData({
+      name: "",
+      email: "",
+      address: "",
+      phone: "",
+      gender: "",
+      department: "",
+    });
+  }
+
+  function handleCancel() {
+    onCloseEditModal();
+    setFormData({
+      name: "",
+      email: "",
+      address: "",
+      phone: "",
+      gender: "",
+      department: "",
+    });
+  }
+
   if (!isOpen) return null;
   return (
     <>
@@ -7,9 +56,9 @@ function EditEmployeeModal({ isOpen, employee, onCloseAddModal }) {
           <div className="modal-content">
             <form onSubmit={handleSubmit}>
               <div className="modal-header">
-                <h4 className="modal-title">{formData.name}</h4>
+                <h4 className="modal-title">Edit Employee</h4>
                 <button
-                  onClick={onCloseAddModal}
+                  onClick={onCloseEditModal}
                   type="button"
                   className="close"
                   data-dismiss="modal"
@@ -114,7 +163,7 @@ function EditEmployeeModal({ isOpen, employee, onCloseAddModal }) {
                   Cancel
                 </button>
                 <button type="submit" className="btn btn-success">
-                  Add
+                  Save Changes
                 </button>
               </div>
             </form>

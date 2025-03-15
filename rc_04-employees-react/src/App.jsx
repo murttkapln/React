@@ -29,8 +29,15 @@ function App() {
 
   function editClick(employee) {
     setIsEditModalOpen(true);
-    selectedEmployee(employee);
-    setSelectedEmployee(null);
+    setSelectedEmployee(employee);
+  }
+
+  function editEmployee(updatedEmployee) {
+    setEmployees((prevEmployees) => {
+      prevEmployees.map((emp) =>
+        emp.id === updatedEmployee.id ? updatedEmployee : emp
+      );
+    });
   }
 
   return (
@@ -49,6 +56,7 @@ function App() {
           onCloseEditModal={() => {
             setIsEditModalOpen(false), setSelectedEmployee(null);
           }}
+          onEditEmployee={editEmployee }
         />
       </div>
     </div>
