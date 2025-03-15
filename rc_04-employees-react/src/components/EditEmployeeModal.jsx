@@ -6,7 +6,14 @@ function EditEmployeeModal({
   onCloseEditModal,
   onEditEmployee,
 }) {
-  const [formData, setFormData] = useState(employee);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    address: "",
+    phone: "",
+    gender: "",
+    department: "",
+  });
 
   useEffect(() => {
     if (employee) {
@@ -47,6 +54,8 @@ function EditEmployeeModal({
       department: "",
     });
   }
+
+  console.log("employe:", employee);
 
   if (!isOpen) return null;
   return (
