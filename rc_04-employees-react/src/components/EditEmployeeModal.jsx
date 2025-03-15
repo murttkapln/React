@@ -55,7 +55,7 @@ function EditEmployeeModal({
     });
   }
 
-  console.log("employe:", employee);
+  // console.log("employe:", employee);
 
   if (!isOpen) return null;
   return (

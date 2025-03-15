@@ -33,11 +33,11 @@ function App() {
   }
 
   function editEmployee(updatedEmployee) {
-    setEmployees((prevEmployees) => {
+    setEmployees((prevEmployees) =>
       prevEmployees.map((emp) =>
         emp.id === updatedEmployee.id ? updatedEmployee : emp
-      );
-    });
+      )
+    );
   }
 
   return (
@@ -56,7 +56,7 @@ function App() {
           onCloseEditModal={() => {
             setIsEditModalOpen(false), setSelectedEmployee(null);
           }}
-          onEditEmployee={editEmployee }
+          onEditEmployee={editEmployee}
         />
       </div>
     </div>
