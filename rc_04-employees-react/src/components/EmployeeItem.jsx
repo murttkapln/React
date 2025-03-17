@@ -1,8 +1,19 @@
-function EmployeeItem({ employee, onEditClick }) {
+function EmployeeItem({
+  employee,
+  onEditClick,
+  onDeleteClick,
+  isSelected,
+  onToggleSelect,
+}) {
   // console.log("employee", employee);
   function handleEditClick() {
     onEditClick(employee);
   }
+
+  function handleDeleteClick() {
+    onDeleteClick(employee);
+  }
+
   return (
     <tr>
       <td>
@@ -10,6 +21,7 @@ function EmployeeItem({ employee, onEditClick }) {
           <input
             type="checkbox"
             id="checkbox1"
+            checked={isSelected}
             onChange={() => onToggleSelect(employee.id)}
           />
           <label htmlFor="checkbox1"></label>
@@ -22,12 +34,12 @@ function EmployeeItem({ employee, onEditClick }) {
       <td>{employee.gender}</td>
       <td>{employee.department}</td>
       <td>
-        <a onClick={handleEditClick}  className="edit">
+        <a onClick={handleEditClick} className="edit">
           <i className="material-icons" data-toggle="tooltip" title="Edit">
             &#xE254;
           </i>
         </a>
-        <a className="delete">
+        <a onClick={handleDeleteClick} className="delete">
           <i className="material-icons" data-toggle="tooltip" title="Delete">
             &#xE872;
           </i>
