@@ -7,8 +7,6 @@ function EmployeeList({
   selectedEmployees,
   setSelectedEmployees,
 }) {
-  // console.log("emp", employees);
-
   function toggleSelectAll(event) {
     if (event.target.checked) {
       setSelectedEmployees(employees.map((emp) => emp.id));
@@ -35,8 +33,8 @@ function EmployeeList({
                 type="checkbox"
                 id="selectAll"
                 checked={
-                  employees.lenght > 0 &&
-                  selectedEmployees.lenght == employees.lenght
+                  employees.length > 0 &&
+                  selectedEmployees.length == employees.length
                 }
                 onChange={toggleSelectAll}
               />
@@ -53,7 +51,8 @@ function EmployeeList({
         </tr>
       </thead>
       <tbody>
-        {employees.map((employee) => (
+        {
+        employees.map((employee) => (
           <EmployeeItem
             key={employee.id}
             employee={employee}

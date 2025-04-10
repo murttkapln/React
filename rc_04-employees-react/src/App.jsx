@@ -4,26 +4,19 @@ import EmployeeList from "./components/EmployeeList";
 import EditEmployeeModal from "./components/EditEmployeeModal";
 import AddEmployeModal from "./components/AddEmployeeModal";
 function App() {
-  const [employees, setEmployees] = useState([
-    {
-      id: 1,
-      name: "David Hardy",
-      email: "thomashardy@gmail.com",
-      address: "89 Chiaroscuro Rd, Portland, USA",
-      phone: "(171) 555-2222",
-    },
-    {
-      id: 2,
-      name: "Ricardo Querasma",
-      email: "ricarddy@gmail.com",
-      address: "89 rico Rd, Portland, USA",
-      phone: "(171) 555-2234",
-    },
-  ]);
+  const [employees, setEmployees] = useState(() => {
+    const savedEmployees = localStorage.getItem("employees");
+    console.log("savedEmployees", savedEmployees);
+    return savedEmployees ? JSON.parse(savedEmployees) : [];
+  });
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isAEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
   const [selectedEmployees, setSelectedEmployees] = useState([]);
+
+  useEffect(() => {
+    localStorage.setItem("employees", JSON.stringify("employees"));
+  }, [employees]);
 
   function addEmployee(newEmployee) {
     setEmployees((prevEmployees) => [
@@ -56,6 +49,7 @@ function App() {
       setEmployees((prevEmployees) =>
         prevEmployees.filter((emp) => emp.id !== employee.id)
       );
+      setSelectedEmployee([]);
     }
   }
 
@@ -65,6 +59,7 @@ function App() {
       setEmployees((prevEmployees) =>
         prevEmployees.filter((emp) => !selectedEmployees.includes(emp.id))
       );
+      setSelectedEmployee([]);
     }
   }
 
